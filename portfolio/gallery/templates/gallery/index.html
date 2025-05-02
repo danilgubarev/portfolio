@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фотограф | Профессиональное портфолио</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock head %}
+
+{% block content %}
+    <section class="hero" id="home">
+        <div class="hero-content fade-in">
+            <h1>{{ info.title }} <h1>
+            <p>{{ info.description }}</p>
+            <div class="btn-group">
+                <a href="#gallery" class="btn">Мои работы</a>
+                <a href="#contact" class="btn btn-outline">Связаться</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Категории -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title fade-in">Мои <span>направления</span></h2>
+            <p class="section-subtitle fade-in delay-1">Каждая фотография - это история, которую я помогаю рассказать</p>
+            
+            <div class="category-grid">
+                {% for cat in category %}
+                    <div class="category-card fade-in delay-1">
+                        <img src="{{ cat.photo.url }}" alt="Свадебная фотография">
+                        <div class="category-overlay">
+                            <h3>{{ cat.name }}</h3>
+                            <p>{{ cat.description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Галерея -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title fade-in">Мои <span>работы</span></h2>
+            <p class="section-subtitle fade-in delay-1">Лучшие кадры из последних проектов</p>
+            
+            <div class="gallery-grid">
+                {% for album in albums %}
+                    <div class="gallery-item fade-in delay-1">
+                        {% with last_photo=album.photos.last %}
+                            <img src="{{ last_photo.images.url }}" alt="{{ album.name }}">
+                        {% endwith %}
+                        <div class="gallery-item-caption">
+                            <h3>Концертная съемка</h3>
+                            <p>Музыкальный фестиваль, 2023</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <!-- Статистика -->
+    <section class="stats">
+        <div class="container">
+            <h2 class="section-title fade-in">В <span>цифрах</span></h2>
+            
+            <div class="stats-container">
+
+                <div class="stat-item fade-in">
+                    <div class="stat-number">{{ experience.years_exp }}+</div>
+                    <div class="stat-title">Опыт работы</div>
+                </div>
+
+                <div class="stat-item fade-in">
+                    <div class="stat-number">{{ experience.drone_flights }}+</div>
+                    <div class="stat-title">Часов работы</div>
+                </div>
+
+                <div class="stat-item fade-in">
+                    <div class="stat-number">{{ experience.total_shoots }}+</div>
+                    <div class="stat-title">Количетсво расстрелов</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- О фотографе -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-container">
+                <div class="about-image fade-in">
+                    <img src="https://images.unsplash.com/photo-1554080353-a576cf803bda?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Фотограф за работой">
+                </div>
+                
+                <div class="about-content">
+                    <h2 class="fade-in">О <span>мне</span></h2>
+                    <p class="fade-in delay-1">Меня зовут Алексей, я профессиональный фотограф с более чем 8-летним опытом работы. Моя страсть к фотографии началась еще в детстве, когда я впервые взял в руки камеру отца.</p>
+                    <p class="fade-in delay-2">Я специализируюсь на свадебной, портретной и пейзажной фотографии. Моя цель - не просто сделать красивые снимки, а запечатлеть эмоции, моменты и истории, которые будут радовать вас долгие годы.</p>
+                    <p class="fade-in delay-3">Также я профессионально занимаюсь аэросъемкой с использованием дронов, что позволяет создавать уникальные и захватывающие кадры с высоты птичьего полета.</p>
+                    
+                    <div class="skills fade-in delay-3">
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>Свадебная фотосъемка</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>Портретная фотосъемка</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span>Аэросъемка с дрона</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
