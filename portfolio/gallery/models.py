@@ -27,9 +27,13 @@ class Info(models.Model):
 
     def __str__(self):
         return self.title
+    
+class AboutMe(models.Model):
+    description = models.TextField()
 
 class Experience(models.Model):
     years_exp = models.PositiveIntegerField()
     drone_flights = models.PositiveIntegerField()
     total_shoots = models.PositiveIntegerField()
     
+

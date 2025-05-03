@@ -5,10 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Фотограф | Професійне портфоліо</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    
-
     {% block links %}
     {% endblock %}
 
@@ -18,14 +16,14 @@
     <header>
         <nav id="navbar">
             <div class="nav-container">
-                <a href="#" class="logo"><i class="fas fa-camera"></i> Фото<span>Граф</span></a>
+                <a href="#" class="logo"><i class="fas fa-camera"></i>BV</a>
                 
                 <div class="nav-links">
-                    <a href="#home">Главная</a>
-                    <a href="#categories">Категории</a>
+                    <a href="#home">Головна</a>
+                    <a href="#categories">Категорії</a>
                     <a href="#gallery">Галерея</a>
-                    <a href="#about">Обо мне</a>
-                    <a href="#contact">Контакты</a>
+                    <a href="#about">Про мене</a>
+                    <a href="#contact">Контакти</a>
                 </div>
                 
                 <div class="social-links">
@@ -50,11 +48,14 @@
         {% endblock %}
     </main>
 
+
+    {% block email %} {% endblock %}
+
     <footer id="contact">
         <div class="footer-container">
             <div class="footer-col">
-                <h3>Фото<span>Граф</span></h3>
-                <p>Профессиональная фотосъемка для ваших самых важных моментов. Свадьбы, портреты, пейзажи и аэросъемка.</p>
+                <h3>BV</h3>
+                <p>Професійна фотографування для ваших найважливіших моментів. Весілля, портрети, пейзажі та аерозйомка.</p>
                 <div class="footer-social">
                     <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
                     <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
@@ -63,27 +64,27 @@
             </div>
             
             <div class="footer-col">
-                <h3>Контакты</h3>
+                <h3>Контакти</h3>
                 <ul class="footer-links">
                     <li><i class="fas fa-phone"></i> +38 (099) 123-45-67</li>
                     <li><i class="fas fa-envelope"></i> photo@graf.com</li>
-                    <li><i class="fas fa-map-marker-alt"></i> Киев, Украина</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Дніпро, Україна</li>
                 </ul>
             </div>
             
             <div class="footer-col">
                 <h3>Услуги</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Свадебная фотосъемка</a></li>
-                    <li><a href="#">Портретная фотосъемка</a></li>
-                    <li><a href="#">Пейзажная фотография</a></li>
-                    <li><a href="#">Аэросъемка с дрона</a></li>
+                    <li><a href="#">Весільна фотозйомка</a></li>
+                    <li><a href="#">Портретна фотозйомка</a></li>
+                    <li><a href="#">Пейзажна фотографія</a></li>
+                    <li><a href="#">Аерозйомка з дрону</a></li>
                 </ul>
             </div>
         </div>
         
         <div class="copyright">
-            <p>&copy; 2023 Фотограф Алексей. Все права защищены.</p>
+            <p>&copy; 2025 Фотограф. Усі права захищені.</p>
         </div>
     </footer>
 
@@ -91,6 +92,8 @@
     <script src="{% static 'js/main.js' %}">
         
     </script>
+
+    {% block js %}{% endblock js %}
     
 </body>
 </html>

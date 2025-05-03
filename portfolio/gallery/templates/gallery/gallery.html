@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'gallery/css/gallery.css' %}">
+{% endblock links %}
+    
+
+{% block content %}
+    <div class="container">
+        <h1 class="section-title">Мои <span>работы</span></h1>
+        
+        <!-- Слайдер 1 - Свадьбы -->
+        {% for album in albums %}
+
+            <section class="gallery-section">
+                <div class="gallery-container">
+                    <div class="gallery-description">
+                        <h3>{{ album.name }}</h3>
+                        <p>Запечатлеваю самые трогательные моменты вашего особенного дня. Каждая свадьба - уникальная история, которую я помогаю рассказать через фотографии.</p>
+                        <p>Мой подход сочетает художественную съемку с репортажным стилем, чтобы сохранить естественность эмоций и красоту момента.</p>
+                        <ul>
+                            <li>Полный день съемки</li>
+                            <li>Обработка всех фотографий</li>
+                            <li>Индивидуальный фотоальбом</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="gallery-slider">
+                        <div class="slider-main" id="weddingSlider">
+                            {% with all_photo=album.photos.all %}
+                                {% for photo in all_photo %}
+                                    {% if forloop.first %}
+                                        <img src="{{ photo.images.url }}" alt="{{ photo.name }}" class="active">
+                                    {% else %}
+                                        <img src="{{ photo.images.url }}" alt="{{ photo.name }}">
+                                    {% endif %}
+                                {% endfor %}
+                            {% endwith %}
+                        </div>
+                        
+                        <div class="slider-controls">
+                            <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                            <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        
+                        <div class="slider-nav">
+                            {% with all_photo=album.photos.all %}
+                                {% for photo in all_photo %}
+                                    <div class="slider-thumbnail {% if forloop.first %}active{% endif %}">
+                                        <img src="{{ photo.images.url }}" alt="{{ photo.name }}">
+                                    </div>
+                                {% endfor %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+
+        {% endfor %}
+    </div>
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static 'gallery/js/gallery.js' %}"></script>
+{% endblock js %}

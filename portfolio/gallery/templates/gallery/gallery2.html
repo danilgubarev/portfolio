@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фотогалерея | Портфолио</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --dark: #121212;
+            --darker: #0a0a0a;
+            --darkest: #050505;
+            --accent: #8e44ad;
+            --light: #f5f5f5;
+            --gray: #333;
+            --light-gray: #666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        /* Навигация (как в вашем предыдущем дизайне) */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            padding: 1.2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        /* Основной контент */
+        .container {
+            max-width: 1400px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .section-title span {
+            color: var(--accent);
+        }
+        
+        /* Стили для слайдеров */
+        .gallery-section {
+            margin-bottom: 4rem;
+        }
+        
+        .gallery-container {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .gallery-description {
+            flex: 1;
+            padding: 20px;
+            background-color: var(--darker);
+            border-radius: 10px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .gallery-description h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .gallery-description p {
+            color: var(--light-gray);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        
+        .gallery-slider {
+            flex: 2;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slider-main {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slider-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .slider-main img.active {
+            opacity: 1;
+        }
+        
+        .slider-nav {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background-color: var(--darker);
+            overflow-x: auto;
+        }
+        
+        .slider-thumbnail {
+            width: 80px;
+            height: 60px;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .slider-thumbnail:hover, .slider-thumbnail.active {
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+        
+        .slider-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 20px;
+            z-index: 10;
+        }
+        
+        .slider-btn {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .slider-btn:hover {
+            background-color: var(--accent);
+            transform: scale(1.1);
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .gallery-container {
+                flex-direction: column;
+            }
+            
+            .slider-main {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .slider-main {
+                height: 300px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .slider-main {
+                height: 250px;
+            }
+            
+            .slider-thumbnail {
+                width: 60px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Фото<span>Граф</span></a>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-telegram"></i></a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1 class="section-title">Мои <span>работы</span></h1>
+        
+        <!-- Слайдер 1 - Свадьбы -->
+        <section class="gallery-section">
+            <div class="gallery-container">
+                <div class="gallery-description">
+                    <h3>Свадебная фотосъемка</h3>
+                    <p>Запечатлеваю самые трогательные моменты вашего особенного дня. Каждая свадьба - уникальная история, которую я помогаю рассказать через фотографии.</p>
+                    <p>Мой подход сочетает художественную съемку с репортажным стилем, чтобы сохранить естественность эмоций и красоту момента.</p>
+                    <ul>
+                        <li>Полный день съемки</li>
+                        <li>Обработка всех фотографий</li>
+                        <li>Индивидуальный фотоальбом</li>
+                    </ul>
+                </div>
+                
+                <div class="gallery-slider">
+                    <div class="slider-main" id="weddingSlider">
+                        <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Свадьба 1" class="active">
+                        <img src="https://images.unsplash.com/photo-1493863641943-9b68992a8d07?ixlib=rb-4.0.3&auto=format&fit=crop&w=2058&q=80" alt="Свадьба 2">
+                        <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Свадьба 3">
+                        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Свадьба 4">
+                    </div>
+                    
+                    <div class="slider-controls">
+                        <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    
+                    <div class="slider-nav">
+                        <div class="slider-thumbnail active">
+                            <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Свадьба 1">
+                        </div>
+                        <div class="slider-thumbnail">
+                            <img src="https://images.unsplash.com/photo-1493863641943-9b68992a8d07?ixlib=rb-4.0.3&auto=format&fit=crop&w=2058&q=80" alt="Свадьба 2">
+                        </div>
+                        <div class="slider-thumbnail">
+                            <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Свадьба 3">
+                        </div>
+                        <div class="slider-thumbnail">
+                            <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Свадьба 4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Слайдер 2 - Портреты -->
+        <section class="gallery-section">
+            <div class="gallery-container">
+                <div class="gallery-description">
+                    <h3>Портретная съемка</h3>
+                    <p>Индивидуальные и групповые портреты, которые раскрывают вашу уникальность. Создаю атмосферу, в которой вы чувствуете себя комфортно и естественно.</p>
+                    <p>Использую профессиональное световое оборудование и реквизит, чтобы подчеркнуть ваши лучшие черты.</p>
+                    <ul>
+                        <li>Студийная съемка</li>
+                        <li>Локационная съемка</li>
+                        <li>Профессиональный макияж</li>
+                        <li>Ретушь фотографий</li>
+                    </ul>
+                </div>
+                
+                <div class="gallery-slider">
+                    <div class="slider-main" id="portraitSlider">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Портрет 1" class="active">
+                        <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Портрет 2">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Портрет 3">
+                        <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Портрет 4">
+                    </div>
+                    
+                    <div class="slider-controls">
+                        <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    
+                    <div class="slider-nav">
+                        <div class="slider-thumbnail active">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Портрет 1">
+                        </div>
+                        <div class="slider-thumbnail">
+                            <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Портрет 2">
+                        </div>
+                        <div class="slider-thumbnail">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Портрет 3">
+                        </div>
+                        <div class="slider-thumbnail">
+                            <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Портрет 4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Слайдер 3 - Аэросъемка -->
+        <section class="gallery-section">
+            <div class="gallery-container">
+                <div class="gallery-description">
+                    <h3>Аэросъемка с дрона</h3>
+                    <p>Уникальные ракурсы и панорамные виды, доступные только с высоты. Профессиональная аэросъемка для недвижимости, мероприятий и пейзажей.</p>
+                    <p>Использую современные дроны с камерами 4K, стабилизацией и системой избегания препятствий.</p>
+                    <ul>
+                        <li>Съемка в разрешении 4K</li>
+                        <li>Панорамные фото 360°</li>
+                        <li>Ортографическая съемка</li>
+                        <li>Видеосъемка с воздуха</li>
+                    </ul>
+                </div>
+                
+                <div class="gallery-slider">
+                    <div class="slider-main" id="droneSlider">
+                        <img src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=2076&q=80" alt="Дрон 1" class="active">
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Дрон 2">
+                        <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Дрон 3">
+                        <img src="https://images.unsplash.com/photo-1429087969512-1e85aab2683d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Дрон 4">
+                    </div>
+                    
+                    <div class="slider-controls">
+                        <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    
+                    <div class="slider-nav">
+                        <div class="slider-thumbnail active">
+                            <img src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=2076&q=80" alt="Дрон 1">
+                        </div>
+                        <div class="slider-thumbnail">
+                            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Дрон 2">
+                        </div>
+                        <div class="slider-thumbnail">
+                            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Дрон 3">
+                        </div>
+                        <div class="slider-thumbnail">
+                            <img src="https://images.unsplash.com/photo-1429087969512-1e85aab2683d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Дрон 4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // Функция для инициализации слайдера
+        function initSlider(sliderId) {
+            const slider = document.getElementById(sliderId);
+            const images = slider.querySelectorAll('img');
+            const thumbnails = slider.parentElement.querySelectorAll('.slider-thumbnail');
+            const prevBtn = slider.parentElement.querySelector('.prev-btn');
+            const nextBtn = slider.parentElement.querySelector('.next-btn');
+            
+            let currentIndex = 0;
+            
+            // Показываем текущее изображение
+            function showImage(index) {
+                images.forEach(img => img.classList.remove('active'));
+                thumbnails.forEach(thumb => thumb.classList.remove('active'));
+                
+                images[index].classList.add('active');
+                thumbnails[index].classList.add('active');
+                currentIndex = index;
+            }
+            
+            // Переход к следующему изображению
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % images.length;
+                showImage(currentIndex);
+            }
+            
+            // Переход к предыдущему изображению
+            function prevImage() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                showImage(currentIndex);
+            }
+            
+            // Обработчики событий
+            nextBtn.addEventListener('click', nextImage);
+            prevBtn.addEventListener('click', prevImage);
+            
+            // Клик по миниатюре
+            thumbnails.forEach((thumb, index) => {
+                thumb.addEventListener('click', () => showImage(index));
+            });
+            
+            // Автопрокрутка (опционально)
+            // let interval = setInterval(nextImage, 5000);
+            
+            // Остановка автопрокрутки при наведении
+            // slider.addEventListener('mouseenter', () => clearInterval(interval));
+            // slider.addEventListener('mouseleave', () => interval = setInterval(nextImage, 5000));
+        }
+        
+        // Инициализация всех слайдеров
+        document.addEventListener('DOMContentLoaded', function() {
+            initSlider('weddingSlider');
+            initSlider('portraitSlider');
+            initSlider('droneSlider');
+        });
+    </script>
+</body>
+</html>

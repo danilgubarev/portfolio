@@ -1,0 +1,209 @@
+/* Основные стили формы */
+.contact-form {
+  padding: 6rem 5%;
+  background-color: var(--darker);
+}
+
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: var(--dark);
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Стили для групп полей */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--light);
+}
+
+/* Общие стили для полей ввода */
+.form-group input,
+.form-group textarea,
+.form-group .textarea,
+.select-selected {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--gray);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--light);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Специфичные стили для textarea */
+.form-group textarea,
+.textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.textarea {
+  height: 300px;
+}
+
+/* Состояния фокуса */
+.form-group input:focus,
+.form-group textarea:focus,
+.select-selected:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.3);
+}
+
+/* Стили для кастомного селекта */
+.theme-selector {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.theme-selector label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: var(--light);
+  font-weight: 500;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-arrow {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #aaa;
+  transition: all 0.3s ease;
+}
+
+.select-arrow i {
+  transition: transform 0.3s ease;
+}
+
+.select-arrow.active i {
+  transform: rotate(180deg);
+}
+
+/* Выпадающий список */
+#id_theme_message {
+  position: absolute;
+  background-color: var(--dark);
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  border-radius: 8px;
+  margin-top: 5px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#id_theme_message {
+  padding: 12px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+
+#id_theme_message i {
+  width: 20px;
+  text-align: center;
+  color: var(--accent);
+}
+
+#id_theme_message:hover {
+  background-color: var(--gray);
+}
+
+#id_theme_message.selected {
+  background-color: rgba(142, 68, 173, 0.2);
+}
+
+/* Кнопка отправки */
+.submit-btn {
+  background-color: var(--accent);
+  color: var(--light);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+  margin-top: 1rem;
+}
+
+.submit-btn:hover {
+  background-color: #7d3c98;
+  transform: translateY(-3px);
+}
+
+/* Сообщение об успешной отправке */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(46, 204, 113, 0.2);
+  border-radius: 8px;
+  margin-top: 2rem;
+  border: 1px solid #2ecc71;
+}
+
+.form-success.show {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+
+.form-success i {
+  color: #2ecc71;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.form-success h3 {
+  color: #2ecc71;
+  margin-bottom: 0.5rem;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .contact-form {
+      padding: 4rem 5%;
+  }
+  
+  .form-container {
+      padding: 2rem;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group .textarea,
+  .select-selected {
+      padding: 0.8rem;
+  }
+}

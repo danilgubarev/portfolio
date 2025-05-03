@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block head %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Фотограф | Профессиональное портфолио</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-{% endblock head %}
+{% block links %}
+
+    <link rel="stylesheet" href="{% static 'gallery/css/email.css' %}">
+
+{% endblock links %}
 
 {% block content %}
     <section class="hero" id="home">
@@ -14,8 +13,8 @@
             <h1>{{ info.title }} <h1>
             <p>{{ info.description }}</p>
             <div class="btn-group">
-                <a href="#gallery" class="btn">Мои работы</a>
-                <a href="#contact" class="btn btn-outline">Связаться</a>
+                <a href="#gallery" class="btn">Мої роботи</a>
+                <a href="#contact" class="btn btn-outline">Зв'язатися</a>
             </div>
         </div>
     </section>
@@ -23,18 +22,20 @@
     <!-- Категории -->
     <section class="categories" id="categories">
         <div class="container">
-            <h2 class="section-title fade-in">Мои <span>направления</span></h2>
-            <p class="section-subtitle fade-in delay-1">Каждая фотография - это история, которую я помогаю рассказать</p>
+            <h2 class="section-title fade-in">Мои направления</h2>
+            <p class="section-subtitle fade-in delay-1">Кожна фотографія – це історія, яку я допомагаю розповісти</p>
             
             <div class="category-grid">
                 {% for cat in category %}
-                    <div class="category-card fade-in delay-1">
-                        <img src="{{ cat.photo.url }}" alt="Свадебная фотография">
-                        <div class="category-overlay">
-                            <h3>{{ cat.name }}</h3>
-                            <p>{{ cat.description }}</p>
+                    <a href="{% url 'gallery:category' cat.id %}">
+                        <div class="category-card fade-in delay-1">
+                            <img src="{{ cat.photo.url }}" alt="Свадебная фотография">
+                            <div class="category-overlay">
+                                <h3>{{ cat.name }}</h3>
+                                <p>{{ cat.description }}</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 {% endfor %}
                 
             </div>
@@ -44,20 +45,22 @@
     <!-- Галерея -->
     <section class="gallery" id="gallery">
         <div class="container">
-            <h2 class="section-title fade-in">Мои <span>работы</span></h2>
-            <p class="section-subtitle fade-in delay-1">Лучшие кадры из последних проектов</p>
+            <h2 class="section-title fade-in">Мої роботи</h2>
+            <p class="section-subtitle fade-in delay-1">Найкращі кадри з останніх проектів</p>
             
             <div class="gallery-grid">
                 {% for album in albums %}
-                    <div class="gallery-item fade-in delay-1">
-                        {% with last_photo=album.photos.last %}
-                            <img src="{{ last_photo.images.url }}" alt="{{ album.name }}">
-                        {% endwith %}
-                        <div class="gallery-item-caption">
-                            <h3>Концертная съемка</h3>
-                            <p>Музыкальный фестиваль, 2023</p>
+                    
+                        <div class="gallery-item fade-in delay-1">
+                            {% with last_photo=album.photos.last %}
+                                <img src="{{ last_photo.images.url }}" alt="{{ album.name }}">
+                            {% endwith %}
+                            <div class="gallery-item-caption">
+                                <h3>Концертна зйомка</h3>
+                                <p>Музичний фестиваль, 2023</p>
+                            </div>
                         </div>
-                    </div>
+
                 {% endfor %}
             </div>
         </div>
@@ -72,17 +75,17 @@
 
                 <div class="stat-item fade-in">
                     <div class="stat-number">{{ experience.years_exp }}+</div>
-                    <div class="stat-title">Опыт работы</div>
+                    <div class="stat-title">Досвід роботи</div>
                 </div>
 
                 <div class="stat-item fade-in">
                     <div class="stat-number">{{ experience.drone_flights }}+</div>
-                    <div class="stat-title">Часов работы</div>
+                    <div class="stat-title">Годин роботи</div>
                 </div>
 
                 <div class="stat-item fade-in">
                     <div class="stat-number">{{ experience.total_shoots }}+</div>
-                    <div class="stat-title">Количетсво расстрелов</div>
+                    <div class="stat-title">Кількість зйомок</div>
                 </div>
             </div>
         </div>
@@ -98,43 +101,61 @@
                 
                 <div class="about-content">
                     <h2 class="fade-in">О <span>мне</span></h2>
-                    <p class="fade-in delay-1">Меня зовут Алексей, я профессиональный фотограф с более чем 8-летним опытом работы. Моя страсть к фотографии началась еще в детстве, когда я впервые взял в руки камеру отца.</p>
-                    <p class="fade-in delay-2">Я специализируюсь на свадебной, портретной и пейзажной фотографии. Моя цель - не просто сделать красивые снимки, а запечатлеть эмоции, моменты и истории, которые будут радовать вас долгие годы.</p>
-                    <p class="fade-in delay-3">Также я профессионально занимаюсь аэросъемкой с использованием дронов, что позволяет создавать уникальные и захватывающие кадры с высоты птичьего полета.</p>
+                    <p class="fade-in delay-1">{{ aboutme.description }}</p>
                     
-                    <div class="skills fade-in delay-3">
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span>Свадебная фотосъемка</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span>Портретная фотосъемка</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-header">
-                                <span>Аэросъемка с дрона</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 {% endblock content %}
+
+{% block email %}
+    <section class="contact-form" id="contact-form">
+        <div class="container">
+            <h2 class="section-title fade-in">Свяжитесь <span>со мной</span></h2>
+            <p class="section-subtitle fade-in delay-1">Заполните форму ниже, и я свяжусь с вами в ближайшее время</p>
+            
+            <div class="form-container fade-in delay-2">
+                <form id="emailForm" method="POST" action="{% url 'gallery:sendmessage' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}">Ваше имя</label>
+                        {{ form.name }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">Ваш email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.phone_number.id_for_label }}">Ваш номер телефону</label>
+                        {{ form.phone_number }}
+                    </div>
+                    
+                    <div class="theme-selector">
+                        <label for="{{ form.theme_message.id_for_label }}">Тема сообщения</label>
+                        {{ form.theme_message }}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.message.id_for_label }}">Ваше сообщение</label>
+                        {{ form.message }}
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Отправить сообщение</button>
+                </form>
+                
+                {% comment %} Отправить messages на index {% endcomment %}
+                <div class="form-success" id="formSuccess">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Сообщение отправлено!</h3>
+                    <p>Я свяжусь с вами в ближайшее время.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock email %}
+
+{% block js %}
+    <script src="{% static 'gallery/js/index.js' %}"></script>
+{% endblock js %}
