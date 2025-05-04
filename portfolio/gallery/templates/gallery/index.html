@@ -56,8 +56,8 @@
                                 <img src="{{ last_photo.images.url }}" alt="{{ album.name }}">
                             {% endwith %}
                             <div class="gallery-item-caption">
-                                <h3>Концертна зйомка</h3>
-                                <p>Музичний фестиваль, 2023</p>
+                                <h3>{{ album.name }}</h3>
+                                <p>{{ album.description }}</p>
                             </div>
                         </div>
 
@@ -96,11 +96,11 @@
         <div class="container">
             <div class="about-container">
                 <div class="about-image fade-in">
-                    <img src="https://images.unsplash.com/photo-1554080353-a576cf803bda?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" alt="Фотограф за работой">
+                    <img src="{{ aboutme.image.url }}" alt="Фотограф">
                 </div>
                 
                 <div class="about-content">
-                    <h2 class="fade-in">О <span>мне</span></h2>
+                    <h2 class="fade-in">Про <span>мене</span></h2>
                     <p class="fade-in delay-1">{{ aboutme.description }}</p>
                     
                 </div>

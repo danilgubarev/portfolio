@@ -10,7 +10,7 @@ from django.views.generic.detail import DetailView
 def index(request):
     context = {
         'category' : Category.objects.all(),
-        'albums' : Album.objects.all()[0:6],
+        'albums' : Album.objects.all()[0:3],
         'experience' : Experience.objects.first(),
         'info': Info.objects.first(),
         'aboutme': AboutMe.objects.first(),

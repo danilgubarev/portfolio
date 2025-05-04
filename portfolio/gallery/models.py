@@ -12,6 +12,7 @@ class Category(models.Model):
 
 class Album(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     category = models.ForeignKey(Category, models.CASCADE, related_name='categories')
 
     def __str__(self):
@@ -29,6 +30,7 @@ class Info(models.Model):
         return self.title
     
 class AboutMe(models.Model):
+    image = models.ImageField(upload_to='aboutme_image/', null=True, blank=True)
     description = models.TextField()
 
 class Experience(models.Model):
@@ -36,4 +38,5 @@ class Experience(models.Model):
     drone_flights = models.PositiveIntegerField()
     total_shoots = models.PositiveIntegerField()
     
-
+    def __str__(self):
+        return f'{self.years_exp}, {self.drone_flights}, {self.total_shoots}'
