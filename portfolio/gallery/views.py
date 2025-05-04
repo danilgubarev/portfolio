@@ -1,11 +1,14 @@
-from django.contrib import auth, messages
+from django.contrib import messages
 from django.shortcuts import render
 from django.core.mail import send_mail
-from .models import Album, Category, Info, Experience, AlbumPhoto, AboutMe
-from .forms import EmailForm
 from django.views.generic.edit import FormView
 from django.views.generic.detail import DetailView
 
+from .models import Album, Category, Info, Experience, AboutMe
+from .forms import EmailForm
+
+from decouple import config
+import os
 
 def index(request):
     context = {
@@ -42,35 +45,38 @@ class SendMessage(FormView):
         name = form.cleaned_data['name']
         email = form.cleaned_data['email']
         phone_number = form.cleaned_data['phone_number']
-        theme_message = form.cleaned_data['theme_message']
         message_from_user = form.cleaned_data['message']
+
+        theme_id = form.cleaned_data['theme_message']
+        category = Category.objects.get(id=theme_id)
+        theme_name = category.name
 
         message = f"""
                     Нове повідомленя, від {name}
 
-                    Тема повідомлення: {theme_message}                    
+                    Тема повідомлення: {theme_name}                    
 
                     Повідомлення:
-                    {message_from_user} 
+                    " {message_from_user} " 
 
-                    Данні замовника:
+                    Контакти замовника:
 
                     Номер телефону: {phone_number}
-                    Емейл: {email}
+                    Email: {email}
 
                     """
 
         send_mail(
-            f'hello ааа',
+            f'Замовлення',
             message,
-            'shop97826@gmail.com',
-            [''],
+            config('EMAIL_HOST_USER'),
+            [config('EMAIL_ADMIN')],
             fail_silently=False
         )
         return super().form_valid(form)
         
 
     def form_invalid(self, form):
-        messages.error(self.request, 'you dodik')
+        messages.error(self.request, 'We have a little error in the form -_-')
         return super().form_invalid(form)
     

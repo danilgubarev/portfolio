@@ -22,7 +22,7 @@
     <!-- Категории -->
     <section class="categories" id="categories">
         <div class="container">
-            <h2 class="section-title fade-in">Мои направления</h2>
+            <h2 class="section-title fade-in">Мої напрямки</h2>
             <p class="section-subtitle fade-in delay-1">Кожна фотографія – це історія, яку я допомагаю розповісти</p>
             
             <div class="category-grid">
@@ -112,14 +112,14 @@
 {% block email %}
     <section class="contact-form" id="contact-form">
         <div class="container">
-            <h2 class="section-title fade-in">Свяжитесь <span>со мной</span></h2>
-            <p class="section-subtitle fade-in delay-1">Заполните форму ниже, и я свяжусь с вами в ближайшее время</p>
+            <h2 class="section-title fade-in">Зв'яжіться <span>зі мною</span></h2>
+            <p class="section-subtitle fade-in delay-1">Заповніть форму нижче, і я зв'яжусь з вами найближчим часом</p>
             
             <div class="form-container fade-in delay-2">
                 <form id="emailForm" method="POST" action="{% url 'gallery:sendmessage' %}">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="{{ form.name.id_for_label }}">Ваше имя</label>
+                        <label for="{{ form.name.id_for_label }}">Ваше ім'я</label>
                         {{ form.name }}
                     </div>
                     
@@ -133,23 +133,23 @@
                     </div>
                     
                     <div class="theme-selector">
-                        <label for="{{ form.theme_message.id_for_label }}">Тема сообщения</label>
+                        <label for="{{ form.theme_message.id_for_label }}">Тема повідомлення</label>
                         {{ form.theme_message }}
                     </div>
                     
                     <div class="form-group">
-                        <label for="{{ form.message.id_for_label }}">Ваше сообщение</label>
+                        <label for="{{ form.message.id_for_label }}">Ваше повідомлення</label>
                         {{ form.message }}
                     </div>
                     
-                    <button type="submit" class="submit-btn">Отправить сообщение</button>
+                    <button type="submit" class="submit-btn">Відправити повідомлення</button>
                 </form>
                 
                 {% comment %} Отправить messages на index {% endcomment %}
                 <div class="form-success" id="formSuccess">
                     <i class="fas fa-check-circle"></i>
-                    <h3>Сообщение отправлено!</h3>
-                    <p>Я свяжусь с вами в ближайшее время.</p>
+                    <h3>Повідомлення відправленно</h3>
+                    <p>Я зв'яжусь з вами у ближайший час</p>
                 </div>
             </div>
         </div>
