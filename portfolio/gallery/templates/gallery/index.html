@@ -50,16 +50,17 @@
             
             <div class="gallery-grid">
                 {% for album in albums %}
-                    
+                <a href="{% url 'gallery:personal' album.id %}">
                         <div class="gallery-item fade-in delay-1">
                             {% with last_photo=album.photos.last %}
-                                <img src="{{ last_photo.images.url }}" alt="{{ album.name }}">
+                             <img src="{{ last_photo.images.url }}" alt="{{ album.name }}"> 
                             {% endwith %}
                             <div class="gallery-item-caption">
                                 <h3>{{ album.name }}</h3>
                                 <p>{{ album.description }}</p>
                             </div>
                         </div>
+                    </a>
 
                 {% endfor %}
             </div>

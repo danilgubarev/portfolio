@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'gallery/css/gallery.css' %}">
+{% endblock links %}
+
+
+
+{% block content %}
+<div class="container">
+<section class="gallery-section">
+    <div class="gallery-container">
+        <div class="gallery-description">
+            <h3>{{ album.name }}</h3>
+            <p>{{ album.description }}</p>
+
+        </div>
+
+        <div class="gallery-slider">
+            <div class="slider-main" id="{{ slider_id }}">
+                {% with all_photo=album.photos.all %}
+                    {% for photo in all_photo %}
+                        <img src="{{ photo.images.url }}" alt="{{ photo.name }}" {% if forloop.first %}class="active"{% endif %}>
+                    {% endfor %}
+                {% endwith %}
+            </div>
+
+            <div class="slider-controls">
+                <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <div class="slider-nav">
+                {% with all_photo=album.photos.all %}
+                    {% for photo in all_photo %}
+                        <div class="slider-thumbnail {% if forloop.first %}active{% endif %}">
+                            <img src="{{ photo.images.url }}" alt="{{ photo.name }}">
+                        </div>
+                    {% endfor %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'gallery/js/gallery.js' %}"></script>
+{% endblock js %}

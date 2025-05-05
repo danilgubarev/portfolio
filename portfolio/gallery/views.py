@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.core.mail import send_mail
 from django.views.generic.edit import FormView
 from django.views.generic.detail import DetailView
+from django.views.generic import TemplateView
 
 from .models import Album, Category, Info, Experience, AboutMe
 from .forms import EmailForm
@@ -21,6 +22,13 @@ def index(request):
     }
     return render(request, 'gallery/index.html', context)
 
+class PersonalView(TemplateView):
+    template_name = 'gallery/personal.html'
+
+    def get_context_data(self,id, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["album"] = Album.objects.get(id=id)
+        return context
 
 
 class CategoryDetailView(DetailView):
