@@ -8,16 +8,18 @@
 {% endblock links %}
 
 {% block content %}
-    <section class="hero" id="home">
-        <div class="hero-content fade-in">
-            <h1>{{ info.title }} <h1>
-            <p>{{ info.description }}</p>
-            <div class="btn-group">
-                <a href="#gallery" class="btn">Мої роботи</a>
-                <a href="#contact" class="btn btn-outline">Зв'язатися</a>
-            </div>
+<section class="hero" id="home">
+    <img class="hero-bg" src="{{ info.banner_image.url }}" alt="Hero background">
+    
+    <div class="hero-content fade-in">
+        <h1>{{ info.title }}</h1>
+        <p>{{ info.description }}</p>
+        <div class="btn-group">
+            <a href="#gallery" class="btn">Мої роботи</a>
+            <a href="#contact" class="btn btn-outline">Зв'язатися</a>
         </div>
-    </section>
+    </div>
+</section>
     
     <!-- Категории -->
     <section class="categories" id="categories">
@@ -44,7 +46,30 @@
     
     <!-- Галерея -->
 
-    
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title fade-in">Мої роботи</h2>
+            <p class="section-subtitle fade-in delay-1">Найкращі кадри з останніх проектів</p>
+            
+            <div class="gallery-grid">
+                {% for album in albums %}
+    {% if album.category.type_of_content == 'photo' %}
+        <a href="{% url 'gallery:personal' album.slug %}">
+            <div class="gallery-item fade-in delay-1">
+                {% with last_photo=album.photos.last %}
+                    <img src="{{ last_photo.images.url }}" alt="{{ album.name }}"> 
+                {% endwith %}
+                <div class="gallery-item-caption">
+                    <h3>{{ album.name }}</h3>
+                    <p>{{ album.description }}</p>
+                </div>
+            </div>
+        </a>
+    {% endif %}
+{% endfor %}
+            </div>
+        </div>
+    </section>
     <!-- Статистика -->
     <section class="stats">
         <div class="container">

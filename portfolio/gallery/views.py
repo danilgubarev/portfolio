@@ -12,9 +12,10 @@ from decouple import config
 import os
 
 def index(request):
+    albums = Album.objects.filter(category__type_of_content='photo')[:3]
     context = {
         'category' : Category.objects.all(),
-        'albums' : Album.objects.all()[0:3],
+        'albums' : albums,
         'experience' : Experience.objects.first(),
         'info': Info.objects.first(),
         'aboutme': AboutMe.objects.first(),

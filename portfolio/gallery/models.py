@@ -21,6 +21,13 @@ class Category(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
+
+            original_slug = self.slug
+            counter = 1
+
+            while Category.objects.filter(slug=self.slug).exists():
+                self.slug = f"{original_slug}-{counter}"
+                counter += 1
         super(Category, self).save(*args, **kwargs)
 
 class Album(models.Model):
@@ -35,7 +42,14 @@ class Album(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
+
+            original_slug = self.slug
+            counter = 1
+
+            while Album.objects.filter(slug=self.slug).exists():
+                self.slug = f"{original_slug}-{counter}"
+                counter += 1
+        super(Album, self).save(*args, **kwargs)
     
 class AlbumPhoto(models.Model):
     album = models.ForeignKey(Album, models.CASCADE, related_name='photos')
@@ -44,6 +58,7 @@ class AlbumPhoto(models.Model):
 
 class Info(models.Model):
     title = models.CharField(max_length=160)
+    banner_image = models.ImageField(default='')
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
