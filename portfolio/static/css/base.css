@@ -276,6 +276,8 @@ nav.scrolled {
 .category-overlay h3 {
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
+    color: white;
+    text-decoration: none;
 }
 
 .category-overlay p {
@@ -326,10 +328,18 @@ nav.scrolled {
     transition: bottom 0.3s;
 }
 
+.album-name {
+    color: white;
+}
+
+.album-description {
+    color: gray;
+}
+
 .gallery-item:hover .gallery-item-caption {
     bottom: 0;
 }
-
+ 
 /* Статистика */
 .stats {
     padding: 6rem 5%;

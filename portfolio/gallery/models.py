@@ -74,4 +74,4 @@ class Experience(models.Model):
     total_shoots = models.PositiveIntegerField()
     
     def __str__(self):
-        return f'{self.years_exp}, {self.drone_flights}, {self.total_shoots}'
+        return f'Досвід роботи - {self.years_exp}, Вильотів на дроні - {self.drone_flights}, Кількість зйомок - {self.total_shoots}'

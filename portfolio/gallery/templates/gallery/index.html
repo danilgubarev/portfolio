@@ -53,20 +53,20 @@
             
             <div class="gallery-grid">
                 {% for album in albums %}
-    {% if album.category.type_of_content == 'photo' %}
-        <a href="{% url 'gallery:personal' album.slug %}">
-            <div class="gallery-item fade-in delay-1">
-                {% with last_photo=album.photos.last %}
-                    <img src="{{ last_photo.images.url }}" alt="{{ album.name }}"> 
-                {% endwith %}
-                <div class="gallery-item-caption">
-                    <h3>{{ album.name }}</h3>
-                    <p>{{ album.description }}</p>
-                </div>
-            </div>
-        </a>
-    {% endif %}
-{% endfor %}
+                    {% if album.category.type_of_content == 'photo' %}
+                        <a href="{% url 'gallery:personal' album.slug %}">
+                            <div class="gallery-item fade-in delay-1">
+                                {% with last_photo=album.photos.last %}
+                                    <img src="{{ last_photo.images.url }}" alt="{{ album.name }}"> 
+                                {% endwith %}
+                                <div class="gallery-item-caption">
+                                    <h3 class="album-name">{{ album.name }}</h3>
+                                    <p class="album-description">{{ album.description }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -84,7 +84,7 @@
 
                 <div class="stat-item fade-in">
                     <div class="stat-number">{{ experience.drone_flights }}+</div>
-                    <div class="stat-title">Годин роботи</div>
+                    <div class="stat-title">Вильотів на дроні</div>
                 </div>
 
                 <div class="stat-item fade-in">
