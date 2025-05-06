@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from .unfold import UNFOLD
+
 from decouple import config
 import os
 
@@ -22,7 +24,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Replace admin panel (unfold)
-    'jazzmin',
+     "unfold",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
