@@ -5,7 +5,7 @@ from django.views.generic.edit import FormView
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
 
-from .models import Album, Category, Info, Experience, AboutMe
+from .models import Album, Category, Info, Experience, AboutMe, AlbumPhoto
 from .forms import EmailForm
 
 from decouple import config
@@ -25,9 +25,9 @@ def index(request):
 class PersonalView(TemplateView):
     template_name = 'gallery/personal.html'
 
-    def get_context_data(self,id, **kwargs):
+    def get_context_data(self,slug, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["album"] = Album.objects.get(id=id)
+        context["album"] = Album.objects.get(slug=slug)
         return context
 
 
@@ -38,7 +38,7 @@ class CategoryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         category = self.get_object()
-        context['albums'] = category.categories.all()
+        context['albums'] = category.categories.prefetch_related('photos')
         return context
 
 

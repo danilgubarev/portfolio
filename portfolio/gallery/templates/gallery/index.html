@@ -27,7 +27,7 @@
             
             <div class="category-grid">
                 {% for cat in category %}
-                    <a href="{% url 'gallery:category' cat.id %}">
+                    <a href="{% url 'gallery:category' cat.slug %}">
                         <div class="category-card fade-in delay-1">
                             <img src="{{ cat.photo.url }}" alt="Свадебная фотография">
                             <div class="category-overlay">
@@ -50,7 +50,7 @@
             
             <div class="gallery-grid">
                 {% for album in albums %}
-                <a href="{% url 'gallery:personal' album.id %}">
+                <a href="{% url 'gallery:personal' album.slug %}">
                         <div class="gallery-item fade-in delay-1">
                             {% with last_photo=album.photos.last %}
                              <img src="{{ last_photo.images.url }}" alt="{{ album.name }}"> 

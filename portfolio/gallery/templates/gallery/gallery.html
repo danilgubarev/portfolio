@@ -10,45 +10,57 @@
     <h1 class="section-title">Мои <span>работы</span></h1>
 
     {% for album in albums %}
-        {% with slider_id="slider_"|add:forloop.counter0 %}
-        <section class="gallery-section">
-            <div class="gallery-container">
-                <div class="gallery-description">
-                    <h3>{{ album.name }}</h3>
-                    <p>{{ album.description }}</p>
+    {% with photos=album.photos.all %}
+        {% if album.category.type_of_content == 'video' %}
+            {% for media in photos %}
+                {% if media.video_url %}
+                    <iframe src="{{ media.video_url }}"></iframe>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {% with slider_id="slider_"|add:forloop.counter0 %}
+            <section class="gallery-section">
+                <div class="gallery-container">
+                    <div class="gallery-description">
+                        <h3>{{ album.name }}</h3>
+                        <p>{{ album.description }}</p>
+                    </div>
 
-                </div>
-
-                <div class="gallery-slider">
-                    <div class="slider-main" id="{{ slider_id }}">
-                        {% with all_photo=album.photos.all %}
-                            {% for photo in all_photo %}
-                                <img src="{{ photo.images.url }}" alt="{{ photo.name }}" {% if forloop.first %}class="active"{% endif %}>
+                    <div class="gallery-slider">
+                        <div class="slider-main" id="{{ slider_id }}">
+                            {% for photo in photos %}
+                                {% if photo.images %}
+                                    <img src="{{ photo.images.url }}" alt="{{ photo.name }}" {% if forloop.first %}class="active"{% endif %}>
+                                {% endif %}
                             {% endfor %}
-                        {% endwith %}
-                    </div>
+                        </div>
 
-                    <div class="slider-controls">
-                        <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
-                        <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
-                    </div>
+                        <div class="slider-controls">
+                            <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                            <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                        </div>
 
-                    <div class="slider-nav">
-                        {% with all_photo=album.photos.all %}
-                            {% for photo in all_photo %}
-                                <div class="slider-thumbnail {% if forloop.first %}active{% endif %}">
-                                    <img src="{{ photo.images.url }}" alt="{{ photo.name }}">
-                                </div>
+                        <div class="slider-nav">
+                            {% for photo in photos %}
+                                {% if photo.images %}
+                                    <div class="slider-thumbnail {% if forloop.first %}active{% endif %}">
+                                        <img src="{{ photo.images.url }}" alt="{{ photo.name }}">
+                                    </div>
+                                {% endif %}
                             {% endfor %}
-                        {% endwith %}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        {% endwith %}
-    {% endfor %}
+            </section>
+            {% endwith %}
+        {% endif %}
+    {% endwith %}
+{% endfor %}
+
 </div>
+
 {% endblock content %}
+
 
 {% block js %}
 <script src="{% static 'gallery/js/gallery.js' %}"></script>
