@@ -83,6 +83,7 @@ nav {
 .gallery-description {
     flex: 1;
     padding: 20px;
+    max-width: 500px;
     background-color: var(--darker);
     border-radius: 10px;
     border-left: 3px solid var(--accent);
@@ -193,6 +194,10 @@ nav {
     .gallery-container {
         flex-direction: column;
     }
+
+    .gallery-description {
+        max-width: 500px;
+    } 
     
     .slider-main {
         height: 350px;
