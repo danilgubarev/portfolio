@@ -12,7 +12,7 @@ from decouple import config
 import os
 
 def index(request):
-    albums = Album.objects.filter(category__type_of_content='photo')[:3]
+    albums = Album.objects.filter(category__type_of_content='photo').order_by('-id')[:3]
     context = {
         'category' : Category.objects.all(),
         'albums' : albums,
@@ -88,4 +88,3 @@ class SendMessage(FormView):
     def form_invalid(self, form):
         messages.error(self.request, 'We have a little error in the form -_-')
         return super().form_invalid(form)
-    

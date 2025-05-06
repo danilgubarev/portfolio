@@ -4,6 +4,7 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'gallery/css/gallery.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock links %}
 
 {% block content %}
@@ -13,58 +14,50 @@
     {% for album in albums %}
     {% with photos=album.photos.all %}
         {% if album.category.type_of_content == 'video' %}
-            {% for media in photos %}
-                {% if media.video_url %}
-                    <iframe src="{{ media.video_url }}"></iframe>
-                {% endif %}
-            {% endfor %}
-        {% else %}
-            {% with slider_id="slider_"|add:forloop.counter0 %}
-            <section class="gallery-section">
-                <div class="gallery-container">
-                    <div class="gallery-description">
-                        <h3>{{ album.name }}</h3>
-                        <div class="desc-p">
-                        <p>{{ album.description|field_max_words:5|safe }}</p>
-                        </div>
+            <section class="video-section">
+                <div class="video-header">
+                    <h2 class="video-title">{{ album.name }}</h2>
+                    <div class="video-meta">
+                        <span class="video-date"><i class="far fa-calendar-alt"></i> {{ album.created_at|date:"d.m.Y" }}</span>
+                        <span class="video-views"><i class="far fa-eye"></i> {{ album.views }} переглядів</span>
+                    </div>
+                </div>
+
+                <div class="video-content">
+                    <div class="video-player-wrapper">
+                        {% for media in photos %}
+                            {% if media.video_url %}
+                                <div class="video-player">
+                                    <iframe src="{{ media.video_url }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <div class="video-overlay">
+                                        <div class="play-button">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
 
-                    <div class="gallery-slider">
-                        <div class="slider-main" id="{{ slider_id }}">
-                            {% for photo in photos %}
-                                {% if photo.images %}
-                                    <img src="{{ photo.images.url }}" alt="{{ photo.name }}" {% if forloop.first %}class="active"{% endif %}>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-
-                        <div class="slider-controls">
-                            <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
-                            <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
-                        </div>
-
-                        <div class="slider-nav">
-                            {% for photo in photos %}
-                                {% if photo.images %}
-                                    <div class="slider-thumbnail {% if forloop.first %}active{% endif %}">
-                                        <img src="{{ photo.images.url }}" alt="{{ photo.name }}">
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                    <div class="video-description">
+                        <div class="description-content">
+                            <h3>Опис проекту</h3>
+                            <div class="desc-text">
+                                {{ album.description|safe }}
+                            </div>
+                            <div class="video-tags">
+                                {% for tag in album.tags.all %}
+                                    <span class="tag">{{ tag.name }}</span>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
-            {% endwith %}
+        {% else %}
+            <!-- Ваш существующий код для фотоальбомов -->
         {% endif %}
     {% endwith %}
-{% endfor %}
-
+    {% endfor %}
 </div>
-
 {% endblock content %}
-
-
-{% block js %}
-<script src="{% static 'gallery/js/gallery.js' %}"></script>
-{% endblock js %}
