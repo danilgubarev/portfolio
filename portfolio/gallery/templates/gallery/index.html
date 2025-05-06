@@ -43,29 +43,7 @@
     </section>
     
     <!-- Галерея -->
-    <section class="gallery" id="gallery">
-        <div class="container">
-            <h2 class="section-title fade-in">Мої роботи</h2>
-            <p class="section-subtitle fade-in delay-1">Найкращі кадри з останніх проектів</p>
-            
-            <div class="gallery-grid">
-                {% for album in albums %}
-                <a href="{% url 'gallery:personal' album.slug %}">
-                        <div class="gallery-item fade-in delay-1">
-                            {% with last_photo=album.photos.last %}
-                             <img src="{{ last_photo.images.url }}" alt="{{ album.name }}"> 
-                            {% endwith %}
-                            <div class="gallery-item-caption">
-                                <h3>{{ album.name }}</h3>
-                                <p>{{ album.description }}</p>
-                            </div>
-                        </div>
-                    </a>
 
-                {% endfor %}
-            </div>
-        </div>
-    </section>
     
     <!-- Статистика -->
     <section class="stats">

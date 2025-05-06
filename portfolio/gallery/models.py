@@ -1,7 +1,8 @@
 from django.db import models
 from multiupload.fields import MultiImageField
 from django.core.exceptions import ValidationError
-from django.utils.text import slugify
+from slugify import slugify
+
 
 class Category(models.Model):
     TYPE_OF_CONTENT = {
