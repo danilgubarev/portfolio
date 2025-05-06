@@ -12,7 +12,7 @@ class AlbumPhotoInline(admin.TabularInline):
 
 class AlbumAdmin(admin.ModelAdmin):
     inlines = [AlbumPhotoInline]
-    exclude = ["slug"]
+    
 @admin.register(Album)
 
 class CategoryAdmin(admin.ModelAdmin):
