@@ -5,14 +5,14 @@ from slugify import slugify
 
 
 class Category(models.Model):
-    TYPE_OF_CONTENT = {
+    TYPE_OF_CONTENT = [
         ('video', 'Відео'),
         ('photo', 'Фото'),
-    }
+    ]
     name = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='category_images/')
     description = models.TextField(null=True, blank=True)
-    type_of_content = models.CharField(choices=TYPE_OF_CONTENT, default='photo')
+    type_of_content = models.CharField(choices=TYPE_OF_CONTENT,max_length=255, default='photo')
     slug = models.SlugField(unique=True, blank=True)
 
     def __str__(self):
